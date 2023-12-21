@@ -1,7 +1,7 @@
 import uvicorn
 
 from typing import Union
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
 from deepface import DeepFace
 import json
 
@@ -15,9 +15,9 @@ def read_root():
     return verification
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+@app.post("/uploadfile")
+def create_upload_file(file: UploadFile):
+    return {"filename": file.filename}
 
 
 if __name__ == "__main__":
